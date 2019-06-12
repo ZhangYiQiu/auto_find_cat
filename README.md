@@ -1,12 +1,14 @@
 # 教你用 Python 自动找猫猫
 
 ## 依赖
-使用python3编写
-需要opencv-contrib-python，需卸载opencv-python，opencv-python缺少部分功能。
-还需要numpy
+1. 使用python3编写
+2. 需要opencv-contrib-python，安装前先卸载opencv-python
 ```
 pip uninstall opencv-python
 pip install opencv-contrib-python==3.4.2.* -i https://mirrors.aliyun.com/pypi/simple/
+```
+3. 需要numpy
+```
 pip install numpy -i https://mirrors.aliyun.com/pypi/simple/
 ```
 ## 准备

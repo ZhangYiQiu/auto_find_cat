@@ -70,19 +70,10 @@ def findBySIFT(img,template,MIN_MATCH_COUNT = 10):
       dst = cv2.perspectiveTransform(pts,M)
       
       img2 = cv2.polylines(img,[np.int32(dst)],True,(255,255,255),4, cv2.LINE_AA)
-      
-      # Finally we draw our inliers (if successfully found the object) or matching keypoints (if failed).
-      # draw_params = dict(matchColor = (0,255,0), # draw matches in green color
-                         # singlePointColor = None,
-                         # matchesMask = matchesMask, # draw only inliers
-                         # flags = 2)
-
-      # img3 = cv2.drawMatches(template,kp1,img,kp2,good,None,**draw_params)
       cv2.imwrite(f'{path}/found.png', img2)
       w1,w2,w3,w4 = [i[0]//1 for i in dst] #逆时针
       return True,(w3-w1) / 2 + w1
   else:
-      #print("Not enough matches are found - %d/%d" % (len(good),MIN_MATCH_COUNT))
       return False,[len(good),MIN_MATCH_COUNT]
 def findTemplateAndClick2(Template,Template_size):
     img_rgb = updateImg()
@@ -118,7 +109,7 @@ def loadTemplate():
     global GetCatCoinTemplate,GetCatCoinTemplate_size
     global GoShopTemplate,GoShopTemplate_size
     global ClickCatTemplate,ClickCatTemplate_size
-    global HappyGetCoinTemplate,HappyGetCoinTemplate_size
+    #global HappyGetCoinTemplate,HappyGetCoinTemplate_size
     #匹配领猫币
     GetCatCoinTemplate = cv2.imread(f'{path}/GetCatCoin.png', img_type)
     #去店铺
@@ -126,19 +117,20 @@ def loadTemplate():
     #点击得喵币
     ClickCatTemplate = cv2.imread(f'{path}/ClickCat.png', img_type)
     #开心收下
-    HappyGetCoinTemplate = cv2.imread(f'{path}/HappyGetCoin.png', img_type)
+    #HappyGetCoinTemplate = cv2.imread(f'{path}/HappyGetCoin.png', img_type)
     def isNone(obj):
         return obj is None;
     if  isNone(GetCatCoinTemplate) or \
         isNone(GoShopTemplate) or \
-        isNone(ClickCatTemplate) or \
-        isNone(HappyGetCoinTemplate):
+        isNone(ClickCatTemplate):# or \
+        #isNone(HappyGetCoinTemplate):
         raise Exception("未找到模板文件！")
     GetCatCoinTemplate_size = GetCatCoinTemplate.shape
     GoShopTemplate_size = GoShopTemplate.shape
     ClickCatTemplate_size = ClickCatTemplate.shape
-    HappyGetCoinTemplate_size = HappyGetCoinTemplate.shape
+    #HappyGetCoinTemplate_size = HappyGetCoinTemplate.shape
 def loopFind(num):
+    print(f'本次一共寻找{num}只猫猫！')
     for i in range(num):
         findTemplateAndClick2(GetCatCoinTemplate,GetCatCoinTemplate_size)
         time.sleep(0.3)
@@ -156,9 +148,12 @@ def main():
     try:
         print('加载模板文件...')
         loadTemplate()
-        num = input("请输入找猫猫次数：")
-        if not num.isdigit():
-            raise Exception('输入的不是一个整数，结束运行！')
+        if len(sys.argv):
+          num = int(sys.argv[1])
+        else:
+          num = input("请输入找猫猫次数：")
+          if not num.isdigit():
+              raise Exception('输入的不是一个整数，结束运行！')
         loopFind(int(num))
     except Exception as e:
         print(e)
