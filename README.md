@@ -2,9 +2,12 @@
 
 ## 依赖
 使用python3编写
-需要opencv
+需要opencv-contrib-python，需卸载opencv-python，opencv-python缺少部分功能。
+还需要numpy
 ```
-pip install opencv-python
+pip uninstall opencv-python
+pip install opencv-contrib-python==3.4.2.* -i https://mirrors.aliyun.com/pypi/simple/
+pip install numpy -i https://mirrors.aliyun.com/pypi/simple/
 ```
 ## 准备
 1. 安装[adb驱动](https://adb.clockworkmod.com/)
