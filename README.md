@@ -28,5 +28,7 @@ pip install numpy -i https://mirrors.aliyun.com/pypi/simple/
 1. 安卓手机打开 USB 调试，设置 > 开发者选项 > USB 调试
 2. 电脑与手机 USB 线连接，确保执行 `adb devices` 可以找到设备 ID
 3. 打开淘宝，点击右上角，进入到合猫猫主页
+
 ![](./resource/image/home.png)
-4. 执行`python auto_find_cat.py`开始自动找猫猫
+
+4. 执行`python auto_find_cat.py`开始自动找猫猫, 或者执行`python auto_find_cat.py [找猫猫次数]`,如`python auto_find_cat.py 6`，就是找六只猫猫

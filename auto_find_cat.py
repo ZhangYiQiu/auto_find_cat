@@ -148,7 +148,7 @@ def main():
     try:
         print('加载模板文件...')
         loadTemplate()
-        if len(sys.argv):
+        if len(sys.argv) > 1:
           num = int(sys.argv[1])
         else:
           num = input("请输入找猫猫次数：")
